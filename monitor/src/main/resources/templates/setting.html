@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>系统设置</title>
+<meta name="description" content="Page Title">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+<!-- Call App Mode on ios devices -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Remove Tap Highlight on Windows Phone IE -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- base css -->
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/vendors.bundle.css}">
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/app.bundle.css}">
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/favicon/apple-touch-icon.png}">
+  <link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicon/favicon-32x32.png}">
+  <link rel="mask-icon" th:href="@{/img/favicon/safari-pinned-tab.svg}" color="#5bbad5">
+  <!-- Optional: page related CSS-->
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/page-login-alt.css}">
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/notifications/sweetalert2/sweetalert2.bundle.css}">
+<!-- You can add your own stylesheet here to override any styles that comes before it
+		<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+</head>
+<body class="mod-bg-1" onload="checkStatus()">
+<!-- DOC: script to save and load page settings --> 
+
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+  <div class="page-inner"> 
+    <!-- BEGIN Left Aside -->
+    <aside class="page-sidebar"> 
+      
+      <!-- BEGIN PRIMARY NAVIGATION -->
+      <nav id="js-primary-nav" class="primary-nav" role="navigation"> 
+        
+        <!-- 
+						TIP: The menu items are not auto translated. You must have a residing lang file associated with the menu saved inside dist/media/data with reference to each 'data-i18n' attribute.
+						-->
+        <ul id="js-nav-menu" class="nav-menu">
+          <li> <a th:href="@{/}"> <i class="fal fa-fw fa-user-circle"></i> <span class="nav-link-text" data-i18n="nav.blankpage">人员数据</span> </a> </li>
+          <li><a th:href="@{/schedulerList}"> <i class="fal fa-fw fa-calendar-check"></i> <span class="nav-link-text" data-i18n="nav.blankpage">排班设置</span> </a></li>
+          <li class="active"> <a th:href="@{/settings}"> <i class="fal fa-fw fa-cog"></i> <span class="nav-link-text" data-i18n="nav.blankpage">系统设置</span> </a> </li>
+          
+          <!-- Example of open and active states -->
+          
+        </ul>
+      </nav>
+      <!-- END PRIMARY NAVIGATION --> 
+      <!-- NAV FOOTER --> 
+      <!-- END NAV FOOTER --> 
+    </aside>
+    <!-- END Left Aside -->
+    <div class="page-content-wrapper"> 
+      <!-- BEGIN Page Header -->
+      <header class="page-header" role="banner">系统设置 
+        <!-- we need this logo when user switches to nav-function-top --> 
+        
+        <!-- DOC: nav menu layout change shortcut --> 
+        
+        <!-- DOC: mobile button appears during mobile width -->
+        
+        <div class="ml-auto d-flex"> 
+          <!-- activate app search icon (mobile) --> 
+          
+          <!-- app settings --> 
+          
+          <!-- app shortcuts --> 
+          
+          <!-- app message --> 
+          <a href="#" class="header-icon"> <i class="fal fa-sign-out"></i> </a>
+          <!-- app notification --> 
+          
+          <!-- app user menu --> 
+          
+        </div>
+      </header>
+      <!-- END Page Header --> 
+      <!-- BEGIN Page Content --> 
+      <!-- the #js-page-content id is needed for some plugins to initialize -->
+      <main id="js-page-content" role="main" class="page-content">
+        <form action="#" th:action="@{/change-password}" method="post" th:object="${password}" oninput='confirmPassword.setCustomValidity(confirmPassword.value != newPassword.value ? "密码不匹配" : "")'>
+          <div class="row">
+            <div class="col-12">
+              <div class="subheader mt-3 mb-3">
+                <h1 class="subheader-title" style="color: #90a4ae"> <i class="fal fa-fw fa-sign-in"></i> 修改密码</h1>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="simpleinput">原密码</label>
+                <input type="password" id="simpleinput" name="oldPassword" th:field="*{oldPassword}" class="form-control">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="simpleinput2">新密码</label>
+                <input type="password" id="simpleinput2" name="newPassword" th:field="*{newPassword}" class="form-control">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="simpleinput3">再次确认密码</label>
+                <input type="password" id="simpleinput3" name="confirmPassword"  class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 12px">
+            <div class="col-3">
+              <div class="form-group">
+                <button class="btn btn-danger" name="submit" id="submit" type="submit">更新密码</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form id="change-refresh" action="#" th:action="@{/change-refresh}" method="post" th:object="${refreshDuration}">
+          <div class="row" style="margin-top: 64px">
+            <div class="col-12">
+              <div class="subheader mt-3 mb-3">
+                <h1 class="subheader-title" style="color: #90a4ae"> <i class="fal fa-fw fa-clock"></i> 修改刷新时间</h1>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="refreshtime">刷新时间(分)</label>
+                <input type="hidden" th:field="*{id}" th:value="*{id}">
+                <input type="number" id="refreshtime" class="form-control" th:field="*{duration}" th:value="*{duration}">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="refreshtime">密码过期时间(天)</label>
+                <input type="number" id="expiredtime" class="form-control" th:field="*{pwdDuration}" th:value="*{pwdDuration}">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="macAddr1">蓝牙网关MAC1</label>
+                <input type="text" id="macAddr1" class="form-control" th:field="*{macAddr1}" th:value="*{macAddr1}" onkeyup="this.value = this.value.toUpperCase();">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="macAddr2">蓝牙网关MAC2</label>
+                <input type="text" id="macAddr2" class="form-control" th:field="*{macAddr2}" th:value="*{macAddr2}" onkeyup="this.value = this.value.toUpperCase();">
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 12px">
+            <div class="col-3">
+              <div class="form-group">
+                <button class="btn btn-primary" name="submit" id="submit2" type="submit">更新</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+
+        <form id="clean-inout-data" action="#" th:action="@{/clean-data}" method="post" th:object="${cleanDate}">
+          <div class="row" style="margin-top: 64px">
+            <div class="col-12">
+              <div class="subheader mt-3 mb-3">
+                <h1 class="subheader-title" style="color: #90a4ae"> <i class="fal fa-fw fa-sync-alt"></i> 清空人员进出历史数据</h1>
+              </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                <label class="form-label" for="refreshtime">清空在此日期之前的人员进出数据</label>
+                <input type="date" id="beforetime" class="form-control" th:field="*{cleanDate}" th:value="*{cleanDate}" required>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 12px">
+            <div class="col-3">
+              <div class="form-group">
+                <button class="btn btn-primary" name="submit" id="submit3" type="submit">清空</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form id="clean-shift-data" action="#" th:action="@{/clean-shift}" method="post" th:object="${cleanShiftDate}">
+          <div class="row" style="margin-top: 64px">
+            <div class="col-12">
+              <div class="subheader mt-3 mb-3">
+                <h1 class="subheader-title" style="color: #90a4ae"> <i class="fal fa-fw fa-sync-alt"></i> 清空排班历史数据</h1>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="refreshtime">清空在此日期之前的排班数据</label>
+                <input type="date" id="beforetime" class="form-control" th:field="*{cleanDate}" th:value="*{cleanDate}" required>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 12px">
+            <div class="col-3">
+              <div class="form-group">
+                <button class="btn btn-primary" name="submit" id="submit3" type="submit">清空</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- Your main content goes below here: --> 
+        
+      </main>
+      <!-- this overlay is activated only when mobile menu is triggered --> 
+      <!-- END Page Content --> 
+      <!-- BEGIN Page Footer --> 
+      
+      <!-- END Page Footer --> 
+      <!-- BEGIN Shortcuts --> 
+      
+      <!-- END Shortcuts --> 
+      <!-- BEGIN Color profile --> 
+      <!-- this area is hidden and will not be seen on screens or screen readers --> 
+      <!-- we use this only for CSS color refernce for JS stuff -->
+      <!-- BEGIN Color profile -->
+
+      <!-- this area is hidden and will not be seen on screens or screen readers -->
+
+      <!-- we use this only for CSS color refernce for JS stuff -->
+
+      <p id="js-color-profile" class="d-none">
+
+        <span class="color-primary-50"></span>
+
+        <span class="color-primary-100"></span>
+
+        <span class="color-primary-200"></span>
+
+        <span class="color-primary-300"></span>
+
+        <span class="color-primary-400"></span>
+
+        <span class="color-primary-500"></span>
+
+        <span class="color-primary-600"></span>
+
+        <span class="color-primary-700"></span>
+
+        <span class="color-primary-800"></span>
+
+        <span class="color-primary-900"></span>
+
+        <span class="color-info-50"></span>
+
+        <span class="color-info-100"></span>
+
+        <span class="color-info-200"></span>
+
+        <span class="color-info-300"></span>
+
+        <span class="color-info-400"></span>
+
+        <span class="color-info-500"></span>
+
+        <span class="color-info-600"></span>
+
+        <span class="color-info-700"></span>
+
+        <span class="color-info-800"></span>
+
+        <span class="color-info-900"></span>
+
+        <span class="color-danger-50"></span>
+
+        <span class="color-danger-100"></span>
+
+        <span class="color-danger-200"></span>
+
+        <span class="color-danger-300"></span>
+
+        <span class="color-danger-400"></span>
+
+        <span class="color-danger-500"></span>
+
+        <span class="color-danger-600"></span>
+
+        <span class="color-danger-700"></span>
+
+        <span class="color-danger-800"></span>
+
+        <span class="color-danger-900"></span>
+
+        <span class="color-warning-50"></span>
+
+        <span class="color-warning-100"></span>
+
+        <span class="color-warning-200"></span>
+
+        <span class="color-warning-300"></span>
+
+        <span class="color-warning-400"></span>
+
+        <span class="color-warning-500"></span>
+
+        <span class="color-warning-600"></span>
+
+        <span class="color-warning-700"></span>
+
+        <span class="color-warning-800"></span>
+
+        <span class="color-warning-900"></span>
+
+        <span class="color-success-50"></span>
+
+        <span class="color-success-100"></span>
+
+        <span class="color-success-200"></span>
+
+        <span class="color-success-300"></span>
+
+        <span class="color-success-400"></span>
+
+        <span class="color-success-500"></span>
+
+        <span class="color-success-600"></span>
+
+        <span class="color-success-700"></span>
+
+        <span class="color-success-800"></span>
+
+        <span class="color-success-900"></span>
+
+        <span class="color-fusion-50"></span>
+
+        <span class="color-fusion-100"></span>
+
+        <span class="color-fusion-200"></span>
+
+        <span class="color-fusion-300"></span>
+
+        <span class="color-fusion-400"></span>
+
+        <span class="color-fusion-500"></span>
+
+        <span class="color-fusion-600"></span>
+
+        <span class="color-fusion-700"></span>
+
+        <span class="color-fusion-800"></span>
+
+        <span class="color-fusion-900"></span>
+
+      </p >
+
+      <!-- END Color profile --> 
+    </div>
+  </div>
+</div>
+<!-- END Page Wrapper --> 
+<!-- BEGIN Quick Menu --> 
+<!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss --> 
+
+<!-- END Quick Menu --> 
+<!-- BEGIN Messenger --> 
+
+<!-- END Messenger --> 
+<!-- BEGIN Page Settings --> 
+
+<!-- END Page Settings --> 
+<!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+<script th:src="@{/js/vendors.bundle.js}"></script>
+<script th:src="@{/js/app.bundle.js}"></script>
+<script th:src="@{/js/notifications/sweetalert2/sweetalert2.bundle.js}"></script>
+
+<script>
+  function checkStatus() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has('oldPasswordError')) {
+      Swal.fire("密码错误", "请确认旧密码是否正确", "error");
+    } else if (urlParams.has('changePasswordSuccess')) {
+      Swal.fire("成功", "已成功修改密码", "success");
+    } else if (urlParams.has('cleanDataSuccess')) {
+      Swal.fire("成功", "已成功清理人员进出历史数据", "success");
+    } else if (urlParams.has('changeRefreshSuccess')) {
+      Swal.fire("成功", "已成功更新刷新间隔", "success");
+    } else if (urlParams.has('cleanShiftDataSuccess')) {
+      Swal.fire("成功", "已成功清理排班历史数据", "success");
+    } else if (urlParams.has('setWorkTimeSuccess')) {
+      Swal.fire("成功", "已成功设置上班时间", "success");
+    }
+  }
+</script>
+<!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
+</body>
+</html>

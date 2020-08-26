@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Inbox</title>
+<meta name="description" content="Inbox Read">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+<!-- Call App Mode on ios devices -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Remove Tap Highlight on Windows Phone IE -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- base css -->
+  <link th:href="@{/css/vendors.bundle.css}" media="screen, print" rel="stylesheet">
+  <link th:href="@{/css/app.bundle.css}" media="screen, print" rel="stylesheet">
+<!-- Place favicon.ico in the root directory -->
+  <link th:href="@{/img/favicon/apple-touch-icon.png}" rel="apple-touch-icon" sizes="180x180">
+  <link th:href="@{/img/favicon/favicon-32x32.png}" rel="icon" sizes="32x32" type="image/png">
+  <link color="#5bbad5" th:href="@{/static/img/favicon/safari-pinned-tab.svg}" rel="mask-icon">
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/fa-solid.css}">
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/fa-brands.css}">
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/fa-regular.css}">
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/fa-duotone.css}">
+</head>
+<body class="mod-bg-1 mod-nav-link nav-function-minify header-function-fixed nav-function-fixed layout-composed">
+<!-- DOC: script to save and load page settings --> 
+
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+  <div class="page-inner"> 
+    <!-- BEGIN Left Aside --> 
+    
+    <!-- END Left Aside -->
+    <div class="page-content-wrapper"> 
+      <!-- BEGIN Page Header -->
+      <header class="page-header pl-4 pr-4" role="banner"> 
+        <!-- we need this logo when user switches to nav-function-top -->
+        <div><img th:src="@{/img/eorionlogoonly.svg}" alt="logo" height="36px"> </div>
+        <!-- DOC: nav menu layout change shortcut --> 
+        
+        <!-- DOC: mobile button appears during mobile width -->
+        
+        <div class="ml-auto d-flex"> 
+          <!-- activate app search icon (mobile) --> 
+          
+          <!-- app settings --> 
+          
+          <!-- app shortcuts --> 
+          
+          <!-- app message --> 
+          <a href="#" class="header-icon" > <i class="far fa-sign-out"></i></a> 
+          <!-- app notification --> 
+          
+          <!-- app user menu -->
+           
+        </div>
+      </header>
+      <!-- END Page Header --> 
+      <!-- BEGIN Page Content --> 
+      <!-- the #js-page-content id is needed for some plugins to initialize -->
+      <main id="js-page-content" role="main" class="page-content"> 
+        <!-- Page heading removed for composed layout -->
+        
+          <!-- left slider --> 
+          
+          <!-- end left slider --> 
+          <!-- inbox container -->
+           
+            <!-- inbox header --> 
+            
+            <!-- end inbox header --> 
+            <!-- inbox message -->
+            <div class="flex-wrap align-items-center flex-grow-1 position-relative bg-gray-50 text-center pt-4">
+              <h1 class="text-danger mt-4 fw-900" ><i class="fad fa-fw fa-exclamation-triangle mr-2"></i>错误代码:[[${status}]]</h1>
+              <p>很抱歉，您所访问的应用遇到错误。详细信息如下所示。</p>
+              <h5 class="normal-text-danger font-weight-bold">可用的错误描述：[[${error}]]</h5>
+              <h5 class="normal-text-danger font-weight-bold">可用的错误信息：[[${message}]]</h5>
+              <p></p>
+				
+				<a th:href="@{/}" class="btn btn-info mr-1">返回</a><a href="javascript:copyToClipboard('error-msg')" class="btn btn-default ml-2"><i class="fal fa-copy mr-2"></i>复制详细信息</a>
+				
+				<div class="mt-4 mb-4"></div>
+              <div class="demo-window mt-4 rounded mb-g shadow-1 m-auto" style="max-width:550px; margin-top: 100px">
+                <div class="demo-window-content h-100">
+                  <div id="slimtest2" class="p-3">
+                    <p id="error-msg" align="left" th:text="${trace}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam sem, imperdiet at mollis vestibulum, bibendum id purus. Aliquam molestie, leo sed molestie condimentum, massa enim lobortis massa, in vulputate diam lorem quis justo. Nullam nec dignissim mi. In non varius nibh. Proin et eros nisi, eu vulputate libero. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ultricies augue id risus dapibus blandit.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end inbox message --> 
+          
+          <!-- end inbox container --> 
+          <!-- compose message --> 
+          
+          <!-- end compose message --> 
+         
+      </main>
+      <!-- this overlay is activated only when mobile menu is triggered -->
+      <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
+      <!-- END Page Content --> 
+      <!-- BEGIN Page Footer --> 
+      <!--<footer class="page-footer pt-4 pb-4"  >
+        <div class="btn-group btn-block " role="group" aria-label="Button group with nested dropdown ">
+          <button type="button" class="btn btn-block btn-danger    fs-md" data-action="toggle" data-class="d-flex" data-target="#panel-compose" data-focus="message-to">提交</button>
+          <div class="btn-group" role="group">
+            <button id="btnGroupDrop2" type="button" class="btn btn-block btn-danger   dropdown-toggle px-2 js-waves-off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu dropdown-menu-right p-0 fs-lg" aria-labelledby="btnGroupDrop2"> <a class="dropdown-item" href="#"><i class="fas  fa-fw fa-save mr-2"></i>保存草稿</a> <a href="javascript:void(0);" class="dropdown-item  collapsed" data-toggle="collapse" data-target=".js-collapse" aria-expanded="false"><i class="fas fa-fw fa-arrows-v mr-2"></i>展开及关闭</a>
+              <div class="dropdown-divider m-0"></div>
+              <a class="dropdown-item text-danger" href="#"><i class="fas fa-fw fa-redo mr-2"></i>重置所有</a></div>
+          </div>
+        </div>
+      </footer>--> 
+      <!-- END Page Footer --> 
+      <!-- BEGIN Shortcuts -->
+       
+      <!-- END Shortcuts --> 
+      <!-- BEGIN Color profile --> 
+      <!-- this area is hidden and will not be seen on screens or screen readers --> 
+      <!-- we use this only for CSS color refernce for JS stuff -->
+      <p id="js-color-profile" class="d-none"> <span class="color-primary-50"></span> <span class="color-primary-100"></span> <span class="color-primary-200"></span> <span class="color-primary-300"></span> <span class="color-primary-400"></span> <span class="color-primary-500"></span> <span class="color-primary-600"></span> <span class="color-primary-700"></span> <span class="color-primary-800"></span> <span class="color-primary-900"></span> <span class="color-info-50"></span> <span class="color-info-100"></span> <span class="color-info-200"></span> <span class="color-info-300"></span> <span class="color-info-400"></span> <span class="color-info-500"></span> <span class="color-info-600"></span> <span class="color-info-700"></span> <span class="color-info-800"></span> <span class="color-info-900"></span> <span class="color-danger-50"></span> <span class="color-danger-100"></span> <span class="color-danger-200"></span> <span class="color-danger-300"></span> <span class="color-danger-400"></span> <span class="color-danger-500"></span> <span class="color-danger-600"></span> <span class="color-danger-700"></span> <span class="color-danger-800"></span> <span class="color-danger-900"></span> <span class="color-warning-50"></span> <span class="color-warning-100"></span> <span class="color-warning-200"></span> <span class="color-warning-300"></span> <span class="color-warning-400"></span> <span class="color-warning-500"></span> <span class="color-warning-600"></span> <span class="color-warning-700"></span> <span class="color-warning-800"></span> <span class="color-warning-900"></span> <span class="color-success-50"></span> <span class="color-success-100"></span> <span class="color-success-200"></span> <span class="color-success-300"></span> <span class="color-success-400"></span> <span class="color-success-500"></span> <span class="color-success-600"></span> <span class="color-success-700"></span> <span class="color-success-800"></span> <span class="color-success-900"></span> <span class="color-fusion-50"></span> <span class="color-fusion-100"></span> <span class="color-fusion-200"></span> <span class="color-fusion-300"></span> <span class="color-fusion-400"></span> <span class="color-fusion-500"></span> <span class="color-fusion-600"></span> <span class="color-fusion-700"></span> <span class="color-fusion-800"></span> <span class="color-fusion-900"></span> </p>
+      <!-- END Color profile --> 
+    </div>
+  </div>
+</div>
+<!-- END Page Wrapper --> 
+<!-- BEGIN Quick Menu --> 
+<!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss -->
+ 
+<!-- END Quick Menu --> 
+<!-- BEGIN Messenger --> 
+
+<!-- END Messenger --> 
+<!-- BEGIN Page Settings --> 
+
+<!-- END Page Settings --> 
+<!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+<script th:src="@{/js/vendors.bundle.js}"></script>
+<script th:src="@{/js/app.bundle.js}"></script>
+<script type="text/javascript">
+  // push settings with "false" save to local
+  initApp.pushSettings("nav-function-minify layout-composed", false);
+
+  function copyToClipboard(elementId) {
+    const aux = document.createElement("input");
+    aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+    document.body.appendChild(aux);
+    aux.select();
+    document.execCommand("copy");
+    document.body.removeChild(aux);
+  }
+
+
+</script>
+<script th:src="@{/js/run_prettify.js}"></script>
+<script>
+  $(document).ready(function()
+  {
+    $('#slimtest2').slimScroll(
+            {
+              position: 'right',
+              height: '100px',
+              railVisible: true,
+              alwaysVisible: true
+            });
+  });
+</script>
+<style type="text/css">
+  .normal-text-danger {
+    color: #d32979;
+  }
+</style>
+</body>
+</html>

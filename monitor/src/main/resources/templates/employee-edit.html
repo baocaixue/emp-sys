@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>修改员工信息</title>
+<meta content="Page Title" name="description">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui" name="viewport">
+<!-- Call App Mode on ios devices -->
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<!-- Remove Tap Highlight on Windows Phone IE -->
+<meta content="no" name="msapplication-tap-highlight">
+<!-- base css -->
+<link th:href="@{/css/vendors.bundle.css}" media="screen, print" rel="stylesheet">
+<link th:href="@{/css/app.bundle.css}" media="screen, print" rel="stylesheet">
+  <link th:href="@{/css/fontawesome-all.css}" media="screen, print" rel="stylesheet">
+  <link rel="stylesheet" media="screen, print" th:href="@{/css/notifications/sweetalert2/sweetalert2.bundle.css}">
+<!-- Place favicon.ico in the root directory -->
+<link th:href="@{/img/favicon/apple-touch-icon.png}" rel="apple-touch-icon" sizes="180x180">
+<link th:href="@{/img/favicon/favicon-32x32.png}" rel="icon" sizes="32x32" type="image/png">
+<link color="#5bbad5" th:href="@{/img/favicon/safari-pinned-tab.svg}" rel="mask-icon">
+<!-- You can add your own stylesheet here to override any styles that comes before it
+            <link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+</head>
+<body class="mod-bg-1">
+<!-- DOC: script to save and load page settings --> 
+
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+  <div class="page-inner"> 
+    <!-- BEGIN Left Aside -->
+    <aside class="page-sidebar"> 
+      
+      <!-- BEGIN PRIMARY NAVIGATION -->
+      <nav class="primary-nav" id="js-primary-nav" role="navigation"> 
+        
+        <!--
+                                TIP: The menu items are not auto translated. You must have a residing lang file associated with the menu saved inside dist/media/data with reference to each 'data-i18n' attribute.
+                                -->
+        <ul class="nav-menu" id="js-nav-menu">
+          <li class="active"> <a th:href="@{/}"> <i class="fal fa-fw fa-user-circle"></i> <span class="nav-link-text" data-i18n="nav.blankpage">人员数据</span> </a> </li>
+          <li><a th:href="@{/schedulerList}"> <i class="fal fa-fw fa-calendar-check"></i> <span class="nav-link-text" data-i18n="nav.blankpage">排班设置</span> </a></li>
+          <li> <a th:href="@{/settings}"> <i class="fal fa-fw fa-cog"></i> <span class="nav-link-text" data-i18n="nav.blankpage">系统设置</span> </a> </li>
+          
+          <!-- Example of open and active states -->
+          
+        </ul>
+      </nav>
+      <!-- END PRIMARY NAVIGATION --> 
+      <!-- NAV FOOTER --> 
+      <!-- END NAV FOOTER --> 
+    </aside>
+    <!-- END Left Aside -->
+    <div class="page-content-wrapper"> 
+      <!-- BEGIN Page Header -->
+      <header class="page-header" role="banner"> <img height="32px" th:src="@{/img/logo-flat.svg}" style="margin-right: 12px">
+        [[${employee.sn == null ? '添加人员数据' : '编辑人员数据'}]]
+        <!-- we need this logo when user switches to nav-function-top --> 
+        
+        <!-- DOC: nav menu layout change shortcut --> 
+        
+        <!-- DOC: mobile button appears during mobile width -->
+        
+        <div class="ml-auto d-flex"> 
+          <!-- activate app search icon (mobile) --> 
+          
+          <!-- app settings --> 
+          
+          <!-- app shortcuts --> 
+          
+          <!-- app message -->
+          <form id="logout-form" action="#" th:action="@{/logout}" method="post"></form>
+          <a class="header-icon" href="#" id="logout-action"> <i class="fal fa-sign-out"></i> </a>
+          <!-- app notification --> 
+          
+          <!-- app user menu --> 
+          
+        </div>
+      </header>
+      <!-- END Page Header --> 
+      <!-- BEGIN Page Content --> 
+      <!-- the #js-page-content id is needed for some plugins to initialize -->
+      <main class="page-content" id="js-page-content" role="main">
+        <form id="employee-form" action="#" th:action="${employee.sn} == null ? @{/employee/add} : @{/employee}" th:object="${employee}" method="post" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-2">
+              <div class="form-group">
+                <label class="form-label" for="name">人员展示名<span><i class="fa fa-fw fa-asterisk" style="margin-left: 6px; color: red"></i></span></label>
+                <input class="form-control" type="text" name="name" id="name" th:value="*{name}" th:required="${true}">
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label class="form-label" for="sn">工号<span><i class="fa fa-fw fa-asterisk" style="margin-left: 6px; color: red"></i></span></label>
+                <input class="form-control" type="text" name="sn" id="sn" th:value="*{sn}" th:readonly="*{sn != null}" th:required="${true}">
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label class="form-label" for="mac">蓝牙设备MAC</label>
+                <input class="form-control" type="text" name="mac" id="mac" th:value="*{mac}"  style="text-transform: uppercase" onkeyup="this.value = this.value.toUpperCase();">
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label class="form-label" for="emg-member">是否为风险管理小组成员</label>
+                <div class="custom-control custom-checkbox">
+                  <input id="emg-member" type="checkbox" class="custom-control-input" th:value="*{isEmergencyMember}" th:field="*{isEmergencyMember}">
+                  <label class="custom-control-label" for="emg-member">是</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-2">
+              <div class="form-group">
+                <label class="form-label" for="priority">优先级</label>
+                <input class="form-control" type="number" name="priority" id="priority" th:value="*{priority}">
+              </div>
+            </div>
+
+            <div class="col-2">
+              <div class="form-group">
+                <label class="form-label" for="enabled">是否启用</label>
+                <div class="custom-control custom-switch">
+                  <input th:checked="*{enabled}" th:field="*{enabled}" class="custom-control-input" id="enabled" name="enabled" type="checkbox">
+                  <label class="custom-control-label" for="enabled">启用</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 16px">
+            <div class="col-3">
+              <div class="form-group">
+                <label class="form-label" for="inputAvatar">头像照片<span th:if="*{employeeAvatar.id == null}"><i class="fa fa-fw fa-asterisk" style="margin-left: 6px; color: red"></i></span></label>
+                <input class="form-control-file" name="inputAvatar" id="inputAvatar" th:field="*{employeeAvatar.inputAvatar}" accept="image/*" type="file" th:required="*{employeeAvatar.id == null}">
+              </div>
+            </div>
+            <div class="col-12" th:with="avatar=*{employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar}">
+              <span th:if="${avatar != null}" th:remove="tag">
+                <img id="avatar-img" th:src="${'data:image/png;base64,' + avatar}" height="240px" width="160px">
+                <input type="hidden" name="avatarId" th:field="*{employeeAvatar.id}" th:value="*{employeeAvatar.id}">
+              </span>
+              <th:block th:if="${avatar == null}">
+                <img id="avatar-img" height="240px" width="160px" th:src="@{/img/avatar-default-icon.png}">
+              </th:block>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 48px">
+            <div class="col-3">
+              <div class="form-group">
+                <button class="btn btn-primary" name="submit" id="submit" type="submit">提交保存</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Your main content goes below here: -->
+        </form>
+      </main>
+      <!-- this overlay is activated only when mobile menu is triggered --> 
+      <!-- END Page Content --> 
+      <!-- BEGIN Page Footer --> 
+      
+      <!-- END Page Footer --> 
+      <!-- BEGIN Shortcuts --> 
+      
+      <!-- END Shortcuts --> 
+      <!-- BEGIN Color profile --> 
+      <!-- this area is hidden and will not be seen on screens or screen readers --> 
+      <!-- we use this only for CSS color refernce for JS stuff -->
+      <!-- BEGIN Color profile -->
+
+      <!-- this area is hidden and will not be seen on screens or screen readers -->
+
+      <!-- we use this only for CSS color refernce for JS stuff -->
+
+      <p id="js-color-profile" class="d-none">
+
+        <span class="color-primary-50"></span>
+
+        <span class="color-primary-100"></span>
+
+        <span class="color-primary-200"></span>
+
+        <span class="color-primary-300"></span>
+
+        <span class="color-primary-400"></span>
+
+        <span class="color-primary-500"></span>
+
+        <span class="color-primary-600"></span>
+
+        <span class="color-primary-700"></span>
+
+        <span class="color-primary-800"></span>
+
+        <span class="color-primary-900"></span>
+
+        <span class="color-info-50"></span>
+
+        <span class="color-info-100"></span>
+
+        <span class="color-info-200"></span>
+
+        <span class="color-info-300"></span>
+
+        <span class="color-info-400"></span>
+
+        <span class="color-info-500"></span>
+
+        <span class="color-info-600"></span>
+
+        <span class="color-info-700"></span>
+
+        <span class="color-info-800"></span>
+
+        <span class="color-info-900"></span>
+
+        <span class="color-danger-50"></span>
+
+        <span class="color-danger-100"></span>
+
+        <span class="color-danger-200"></span>
+
+        <span class="color-danger-300"></span>
+
+        <span class="color-danger-400"></span>
+
+        <span class="color-danger-500"></span>
+
+        <span class="color-danger-600"></span>
+
+        <span class="color-danger-700"></span>
+
+        <span class="color-danger-800"></span>
+
+        <span class="color-danger-900"></span>
+
+        <span class="color-warning-50"></span>
+
+        <span class="color-warning-100"></span>
+
+        <span class="color-warning-200"></span>
+
+        <span class="color-warning-300"></span>
+
+        <span class="color-warning-400"></span>
+
+        <span class="color-warning-500"></span>
+
+        <span class="color-warning-600"></span>
+
+        <span class="color-warning-700"></span>
+
+        <span class="color-warning-800"></span>
+
+        <span class="color-warning-900"></span>
+
+        <span class="color-success-50"></span>
+
+        <span class="color-success-100"></span>
+
+        <span class="color-success-200"></span>
+
+        <span class="color-success-300"></span>
+
+        <span class="color-success-400"></span>
+
+        <span class="color-success-500"></span>
+
+        <span class="color-success-600"></span>
+
+        <span class="color-success-700"></span>
+
+        <span class="color-success-800"></span>
+
+        <span class="color-success-900"></span>
+
+        <span class="color-fusion-50"></span>
+
+        <span class="color-fusion-100"></span>
+
+        <span class="color-fusion-200"></span>
+
+        <span class="color-fusion-300"></span>
+
+        <span class="color-fusion-400"></span>
+
+        <span class="color-fusion-500"></span>
+
+        <span class="color-fusion-600"></span>
+
+        <span class="color-fusion-700"></span>
+
+        <span class="color-fusion-800"></span>
+
+        <span class="color-fusion-900"></span>
+
+      </p >
+
+      <!-- END Color profile --> 
+    </div>
+  </div>
+</div>
+<!-- END Page Wrapper --> 
+<!-- BEGIN Quick Menu --> 
+<!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss --> 
+
+<!-- END Quick Menu --> 
+<!-- BEGIN Messenger --> 
+
+<!-- END Messenger --> 
+<!-- BEGIN Page Settings --> 
+
+<!-- END Page Settings --> 
+<!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) --> 
+<script th:src="@{/js/vendors.bundle.js}"></script> 
+<script th:src="@{/js/app.bundle.js}"></script>
+<script th:src="@{/js/notifications/sweetalert2/sweetalert2.bundle.js}"></script>
+<!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
+<script>
+  $('#logout-action').click(function () {
+    $('#logout-form').submit();
+  });
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    $('#avatar-img').attr('src', e.target.result);
+  }
+
+  $('#inputAvatar').bind('change', function() {
+    if (this.files) {
+      if (this.files[0].size > 1024*1024) {
+        this.setCustomValidity('图片文件应小于1MB');
+      } else {
+        this.setCustomValidity('');
+        reader.readAsDataURL(this.files[0]);
+      }
+    } else {
+      this.setCustomValidity('');
+    }
+  });
+
+  $('#sn').bind('change', function() {
+    let sn = $('#sn').val();
+    let settings = {
+      type: 'GET',
+      url: '[[@{/employee/checkSn/}]]' + sn,
+    };
+    $.ajax(settings).done(function(result) {
+      if (result == 'duplicatekey') {
+        Swal.fire("员工号已存在", "请确认输入的员工号是否正确", "error");
+        $('#sn').val('');
+      }
+    });
+  });
+
+  //function checkStatus() {
+    //const queryString = window.location.search;
+    //const urlParams = new URLSearchParams(queryString);
+    //if (urlParams.has('duplicatekey')) {
+      //Swal.fire("员工号已存在", "请确认输入的员工号是否正确", "error");
+    //}
+  //}
+</script>
+
+</body>
+</html>

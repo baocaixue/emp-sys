@@ -1,0 +1,21 @@
+spring:
+  data:
+    mongodb:
+#      host: ${mongo.host}
+#      username: ${mongo.username}
+#      password: ${mongo.password}
+#      database: ${mongo.database}
+  codec:
+    max-in-memory-size: 500MB
+server:
+  port: ${application.port:8080}
+
+external:
+  refresh:
+    enable : false
+    uri: "http://192.168.1.2//api/kiton-operationRelesa/TriggedRefresh"
+    channel: 9
+    project-type: 2
+    uniquenessSign: "http://192.168.1.2:8080/shift"
+    params:
+      - "B0:52:16:07:7A:F1"

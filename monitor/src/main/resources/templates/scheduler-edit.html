@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>排班设置</title>
+    <meta content="Page Title" name="description">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui" name="viewport">
+    <!-- Call App Mode on ios devices -->
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta content="no" name="msapplication-tap-highlight">
+    <!-- base css -->
+    <link th:href="@{/css/vendors.bundle.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/app.bundle.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/fa-brands.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/fa-regular.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/fa-duotone.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/fa-solid.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/datagrid/datatables/datatables.bundle.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/formplugins/select2/select2.bundle.css}" media="screen, print" rel="stylesheet">
+    <!-- Place favicon.ico in the root directory -->
+  <link th:href="@{/img/favicon/apple-touch-icon.png}" rel="apple-touch-icon" sizes="180x180">
+  <link th:href="@{/img/favicon/favicon-32x32.png}" rel="icon" sizes="32x32" type="image/png">
+  <link color="#5bbad5" th:href="@{/img/favicon/safari-pinned-tab.svg}" rel="mask-icon">
+    <!-- You can add your own stylesheet here to override any styles that comes before it
+            <link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+</head>
+<body class="mod-bg-1 ">
+<!-- DOC: script to save and load page settings -->
+
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+    <div class="page-inner">
+        <!-- BEGIN Left Aside -->
+        <aside class="page-sidebar">
+            <!-- BEGIN PRIMARY NAVIGATION -->
+            <nav class="primary-nav" id="js-primary-nav" role="navigation">
+
+                <!--TIP: The menu items are not auto translated. You must have a residing lang file associated with the menu saved inside dist/media/data with reference to each 'data-i18n' attribute.-->
+                <ul class="nav-menu" id="js-nav-menu">
+                  <li> <a th:href="@{/}"> <i class="fal fa-fw fa-user-circle"></i> <span class="nav-link-text" data-i18n="nav.blankpage">人员数据</span> </a> </li>
+                  <li class="active"><a th:href="@{/schedulerList}"> <i class="fal fa-fw fa-calendar-check"></i> <span class="nav-link-text" data-i18n="nav.blankpage">排班设置</span> </a></li>
+                  <li> <a th:href="@{/settings}"> <i class="fal fa-fw fa-cog"></i> <span class="nav-link-text" data-i18n="nav.blankpage">系统设置</span> </a> </li>
+                    <!-- Example of open and active states -->
+                </ul>
+            </nav>
+            <!-- END PRIMARY NAVIGATION -->
+            <!-- NAV FOOTER -->
+            <!-- END NAV FOOTER -->
+        </aside>
+        <!-- END Left Aside -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN Page Header -->
+            <header class="page-header" role="banner">
+              <img height="32px" th:src="@{/img/eorionlogoonly.svg}" style="margin-right: 3px"><span style="color: gray; font-weight: 300">| 排班设置</span>
+                <!-- we need this logo when user switches to nav-function-top -->
+                <!-- DOC: nav menu layout change shortcut -->
+                <!-- DOC: mobile button appears during mobile width -->
+                <div class="ml-auto d-flex">
+                    <!-- activate app search icon (mobile) -->
+                    <!-- app settings -->
+                    <!-- app shortcuts -->
+                    <!-- app message -->
+                    <a class="header-icon" href="#"> <i class="fal fa-sign-out-alt"></i> </a>
+                    <!-- app notification -->
+                    <!-- app user menu -->
+                </div>
+            </header>
+            <!-- END Page Header -->
+            <!-- BEGIN Page Content -->
+            <!-- the #js-page-content id is needed for some plugins to initialize -->
+            <main class="page-content" id="js-page-content" role="main">
+              <form th:action="@{/scheduler}" method="post" th:object="${schedule}">
+                  <input type="hidden" th:field="*{date}" th:value="*{date}" th:if="*{date != null}">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="form-group">
+                            <h1 class="fw-900 color-black" th:if="*{date != null}"><i class="fal fa-calendar-check mr-2"></i>[[*{#temporals.format(date, 'yyyy-MM-dd')}]] </h1>
+                        </div>
+                        <div class="col-6 pl-0 mb-4" th:if="*{date == null}">
+                            <div class="form-group mt-3 mb-4">
+                                <label class="form-label fw-300" for="schedule-date">排班日期</label>
+                                <input type="date" id="schedule-date" class="form-control" th:field="*{date}" th:value="*{date}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5>商场值班</h5>
+                            <label class="form-label fw-300" for="single-default21">早班 / 晚班</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <select class="select2 form-control w-100" id="single-default21" style="position: absolute; z-index:999999" th:field="*{departmentMorning.sn}" required>
+                                        <optgroup label="请选择员工">
+                                            <option th:value="*{departmentMorning.sn}" th:text="*{departmentMorning.name}" selected="selected" th:if="*{departmentMorning != null}">Alaska</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select class="select2 form-control w-100" id="single-default22" style="position: absolute; z-index:999999" th:field="*{departmentAfternoon.sn}" required>
+                                        <optgroup label="请选择员工">
+                                            <option th:value="*{departmentAfternoon.sn}" th:text="*{departmentAfternoon.name}" selected="selected" th:if="*{departmentAfternoon != null}">Alaska</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5>销售值班</h5>
+                            <label class="form-label fw-300" for="single-default31">早班 / 晚班</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <select class="select2 form-control w-100" id="single-default31" style="position: absolute; z-index:999999" th:field="*{salesMorning.sn}" required>
+                                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                                            <option th:value="*{salesMorning.sn}" th:text="*{salesMorning.name}" selected="selected" th:if="*{salesMorning != null}">Alaska</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select class="select2 form-control w-100" id="single-default32" style="position: absolute; z-index:999999" th:field="*{salesAfternoon.sn}" required>
+                                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                                            <option th:value="*{salesAfternoon.sn}" th:text="*{salesAfternoon.name}" selected="selected" th:if="*{salesAfternoon != null}">Alaska</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5>客服值班</h5>
+                            <label class="form-label fw-300" for="single-default41">早班 / 晚班</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <select class="select2 form-control w-100" id="single-default41" style="position: absolute; z-index:999999" th:field="*{serviceMorning.sn}" required>
+                                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                                            <option th:value="*{serviceMorning.sn}" th:text="*{serviceMorning.name}" selected="selected" th:if="*{serviceMorning != null}">Alaska</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select class="select2 form-control w-100" id="single-default42" style="position: absolute; z-index:999999" th:field="*{serviceAfternoon.sn}" required>
+                                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                                            <option th:value="*{serviceAfternoon.sn}" th:text="*{serviceAfternoon.name}" selected="selected" th:if="*{serviceAfternoon != null}">Alaska</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5>红十字会值班</h5>
+                            <label class="form-label fw-300" for="single-default51">早班 / 晚班</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <select class="select2 form-control w-100" id="single-default51" style="position: absolute; z-index:999999" th:field="*{redCrossMorning.sn}" required>
+                                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                                            <option th:value="*{redCrossMorning.sn}" th:text="*{redCrossMorning.name}" selected="selected" th:if="*{redCrossMorning != null}">Alaska</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select class="select2 form-control w-100" id="single-default52" style="position: absolute; z-index:999999" th:field="*{redCrossAfternoon.sn}" required>
+                                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                                            <option th:value="*{redCrossAfternoon.sn}" th:text="*{redCrossAfternoon.name}" selected="selected" th:if="*{redCrossAfternoon != null}">Alaska</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4" style="text-align: right">
+                        <a class="btn btn-secondary mr-1" th:href="@{/schedulerList}">返回</a>
+                        <a id="delete-item-btn" class="btn btn-danger mr-1" th:attr="data-id=*{date}" data-target="#exampleModalCenter" data-toggle="modal" href="#" th:if="*{date != null}"><i class="fal fa-fw fa-trash-alt mr-2"></i>删除</a>
+                        <button class="btn btn-primary" id="submit-update-form" type="submit"><i class="fal fa-fw fa-save mr-2"></i>保存</button>
+                    </div>
+
+                </div>
+              </form>
+                <!-- Your main content goes below here: -->
+                <div class="row">
+
+                    <!-- datatable start -->
+                    <div class="container-fluid mt-3"></div>
+
+                    <!-- Modal Right Small -->
+
+
+                    <!-- datatable end -->
+                    <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="exampleModalCenter"
+                         role="dialog" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">删除记录</h5>
+                                    <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body"> 是否删除当前记录？ 请注意，此操作不可逆。</div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-dismiss="modal" type="button">取消</button>
+                                    <form id="delete-item" action="#" th:action="@{/scheduler/delete}" th:object="${empSchedule}" method="post">
+                                        <input id="delete-item-id" type="hidden" th:field="*{date}">
+                                        <button class="btn btn-primary" type="submit">删除</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- this overlay is activated only when mobile menu is triggered -->
+            <!-- END Page Content -->
+            <!-- BEGIN Page Footer -->
+
+            <!-- END Page Footer -->
+            <!-- BEGIN Shortcuts -->
+
+            <!-- END Shortcuts -->
+            <!-- BEGIN Color profile -->
+            <!-- this area is hidden and will not be seen on screens or screen readers -->
+            <!-- we use this only for CSS color refernce for JS stuff -->
+
+            <!-- BEGIN Color profile -->
+
+            <!-- this area is hidden and will not be seen on screens or screen readers -->
+
+            <!-- we use this only for CSS color refernce for JS stuff -->
+
+            <p class="d-none" id="js-color-profile"><span class="color-primary-50"></span> <span
+                    class="color-primary-100"></span> <span class="color-primary-200"></span> <span
+                    class="color-primary-300"></span> <span class="color-primary-400"></span> <span
+                    class="color-primary-500"></span> <span class="color-primary-600"></span> <span
+                    class="color-primary-700"></span> <span class="color-primary-800"></span> <span
+                    class="color-primary-900"></span> <span class="color-info-50"></span> <span
+                    class="color-info-100"></span> <span class="color-info-200"></span> <span
+                    class="color-info-300"></span> <span class="color-info-400"></span> <span
+                    class="color-info-500"></span> <span class="color-info-600"></span> <span
+                    class="color-info-700"></span> <span class="color-info-800"></span> <span
+                    class="color-info-900"></span> <span class="color-danger-50"></span> <span
+                    class="color-danger-100"></span> <span class="color-danger-200"></span> <span
+                    class="color-danger-300"></span> <span class="color-danger-400"></span> <span
+                    class="color-danger-500"></span> <span class="color-danger-600"></span> <span
+                    class="color-danger-700"></span> <span class="color-danger-800"></span> <span
+                    class="color-danger-900"></span> <span class="color-warning-50"></span> <span
+                    class="color-warning-100"></span> <span class="color-warning-200"></span> <span
+                    class="color-warning-300"></span> <span class="color-warning-400"></span> <span
+                    class="color-warning-500"></span> <span class="color-warning-600"></span> <span
+                    class="color-warning-700"></span> <span class="color-warning-800"></span> <span
+                    class="color-warning-900"></span> <span class="color-success-50"></span> <span
+                    class="color-success-100"></span> <span class="color-success-200"></span> <span
+                    class="color-success-300"></span> <span class="color-success-400"></span> <span
+                    class="color-success-500"></span> <span class="color-success-600"></span> <span
+                    class="color-success-700"></span> <span class="color-success-800"></span> <span
+                    class="color-success-900"></span> <span class="color-fusion-50"></span> <span
+                    class="color-fusion-100"></span> <span class="color-fusion-200"></span> <span
+                    class="color-fusion-300"></span> <span class="color-fusion-400"></span> <span
+                    class="color-fusion-500"></span> <span class="color-fusion-600"></span> <span
+                    class="color-fusion-700"></span> <span class="color-fusion-800"></span> <span
+                    class="color-fusion-900"></span></p>
+
+            <!-- END Color profile -->
+
+            <!-- END Color profile -->
+        </div>
+    </div>
+</div>
+<!-- END Page Wrapper -->
+<!-- BEGIN Quick Menu -->
+<!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss -->
+
+<!-- END Quick Menu -->
+<!-- BEGIN Messenger -->
+
+<!-- END Messenger -->
+<!-- BEGIN Page Settings -->
+
+<!-- END Page Settings -->
+<!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+<script th:src="@{/js/vendors.bundle.js}"></script>
+<script th:src="@{/js/app.bundle.js}"></script>
+<script th:src="@{/js/datagrid/datatables/datatables.bundle.js}"></script>
+<script th:src="@{/js/formplugins/select2/select2.bundle.js}"></script>
+<script>
+    /* demo scripts for change table color */
+    /* change background */
+    $(document).ready(function () {
+        $('#dt-basic-example').dataTable(
+            {
+                responsive: true,
+                paging: false,
+                searching: true,
+                ordering: false
+            });
+    });
+</script>
+<script>
+  $(document).ready(function () {
+    $(function () {
+        $('.select2').select2({
+            ajax: {
+                url: '[[@{scheduler/employee}]]',
+                dataType: 'json',
+                data: function (params) {
+                    const query = {
+                        search: params.term
+                    }
+                    return query;
+                },
+                delay: 1000,
+                processResults: function (data, params) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.id + ' - ' + item.text,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
+    });
+  });
+
+  $(document).on("click", "#delete-item-btn", function () {
+      const date = $(this).data('id');
+      $('#delete-item-id').val(date);
+  });
+</script>
+<!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            登陆
+        </title>
+        <meta name="description" content="Login">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+        <!-- Call App Mode on ios devices -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!-- Remove Tap Highlight on Windows Phone IE -->
+        <meta name="msapplication-tap-highlight" content="no">
+        <!-- base css -->
+        <link rel="stylesheet" media="screen, print" th:href="@{/css/vendors.bundle.css}">
+        <link rel="stylesheet" media="screen, print" th:href="@{/css/app.bundle.css}">
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/favicon/apple-touch-icon.png}">
+        <link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicon/favicon-32x32.png}">
+        <link rel="mask-icon" th:href="@{/img/favicon/safari-pinned-tab.svg}" color="#5bbad5">
+        <link rel="stylesheet" media="screen, print" th:href="@{/css/notifications/sweetalert2/sweetalert2.bundle.css}">
+        <!-- Optional: page related CSS-->
+        <link rel="stylesheet" media="screen, print" th:href="@{/css/page-login-alt.css}">
+    </head>
+    <body onload="checkError()">
+        <div class="blankpage-form-field">
+            <div class="page-logo m-0 w-100 align-items-center justify-content-center rounded border-bottom-left-radius-0 border-bottom-right-radius-0 px-4">
+                <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
+                    <img th:src="@{/img/ikealogo.svg}" alt="SmartAdmin WebApp" aria-roledescription="logo">
+                    <span class="page-logo-text mr-1">管理员登录</span>
+                    
+                </a>
+            </div>
+            <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
+                <form action="#" id="login-form" th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label class="form-label" for="password">密码</label>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="password" value="">
+                        <input type="hidden" id="username" class="form-control" name="username" value="admin">
+                    </div>
+                    <button type="button" class="btn btn-default float-right" onclick="resetPwd()">初始化密码</button>
+                    <button type="submit" class="btn btn-default float-center">登录</button>
+                </form>
+            </div>
+            
+        </div>
+        
+       
+        <!-- BEGIN Color profile -->
+        <!-- this area is hidden and will not be seen on screens or screen readers -->
+        <!-- we use this only for CSS color refernce for JS stuff -->
+        <p id="js-color-profile" class="d-none">
+            <span class="color-primary-50"></span>
+            <span class="color-primary-100"></span>
+            <span class="color-primary-200"></span>
+            <span class="color-primary-300"></span>
+            <span class="color-primary-400"></span>
+            <span class="color-primary-500"></span>
+            <span class="color-primary-600"></span>
+            <span class="color-primary-700"></span>
+            <span class="color-primary-800"></span>
+            <span class="color-primary-900"></span>
+            <span class="color-info-50"></span>
+            <span class="color-info-100"></span>
+            <span class="color-info-200"></span>
+            <span class="color-info-300"></span>
+            <span class="color-info-400"></span>
+            <span class="color-info-500"></span>
+            <span class="color-info-600"></span>
+            <span class="color-info-700"></span>
+            <span class="color-info-800"></span>
+            <span class="color-info-900"></span>
+            <span class="color-danger-50"></span>
+            <span class="color-danger-100"></span>
+            <span class="color-danger-200"></span>
+            <span class="color-danger-300"></span>
+            <span class="color-danger-400"></span>
+            <span class="color-danger-500"></span>
+            <span class="color-danger-600"></span>
+            <span class="color-danger-700"></span>
+            <span class="color-danger-800"></span>
+            <span class="color-danger-900"></span>
+            <span class="color-warning-50"></span>
+            <span class="color-warning-100"></span>
+            <span class="color-warning-200"></span>
+            <span class="color-warning-300"></span>
+            <span class="color-warning-400"></span>
+            <span class="color-warning-500"></span>
+            <span class="color-warning-600"></span>
+            <span class="color-warning-700"></span>
+            <span class="color-warning-800"></span>
+            <span class="color-warning-900"></span>
+            <span class="color-success-50"></span>
+            <span class="color-success-100"></span>
+            <span class="color-success-200"></span>
+            <span class="color-success-300"></span>
+            <span class="color-success-400"></span>
+            <span class="color-success-500"></span>
+            <span class="color-success-600"></span>
+            <span class="color-success-700"></span>
+            <span class="color-success-800"></span>
+            <span class="color-success-900"></span>
+            <span class="color-fusion-50"></span>
+            <span class="color-fusion-100"></span>
+            <span class="color-fusion-200"></span>
+            <span class="color-fusion-300"></span>
+            <span class="color-fusion-400"></span>
+            <span class="color-fusion-500"></span>
+            <span class="color-fusion-600"></span>
+            <span class="color-fusion-700"></span>
+            <span class="color-fusion-800"></span>
+            <span class="color-fusion-900"></span>
+        </p>
+        <!-- END Color profile -->
+        <!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+        <script th:src="@{/js/vendors.bundle.js}"></script>
+        <script th:src="@{/js/app.bundle.js}"></script>
+        <script th:src="@{/js/notifications/sweetalert2/sweetalert2.bundle.js}"></script>
+        <script>
+            function checkError() {
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                if (urlParams.has('error')) {
+                    Swal.fire("登陆失败", "请确认密码是否正确", "error");
+                } else if (urlParams.has('changePasswordSuccess')) {
+                    Swal.fire("成功", "已成功修改密码", "success");
+                }
+            }
+
+            function resetPwd() {
+                let settings = {
+                    type: 'POST',
+                    url: '[[@{/admin/init}]]',
+                };
+                $.ajax(settings).done(function(result) {
+                    Swal.fire("密码初始化成功", "请联系管理员获取密码", "success");
+                });
+            }
+        </script>
+        <!-- Page related scripts -->
+    </body>
+</html>

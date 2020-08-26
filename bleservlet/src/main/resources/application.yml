@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      host: ${mongo.host}
+      username: ${mongo.username}
+      password: ${mongo.password}
+      database: ${mongo.database}
+server:
+  port: ${application.port:8081}

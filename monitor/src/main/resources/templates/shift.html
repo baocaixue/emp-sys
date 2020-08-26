@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>排班列表</title>
+    <meta content="Page Title" name="description">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui" name="viewport">
+    <!-- Call App Mode on ios devices -->
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta content="no" name="msapplication-tap-highlight">
+    <!-- base css -->
+    <link media="screen, print" rel="stylesheet" th:href="@{/css/vendors.bundle.css}">
+    <link media="screen, print" rel="stylesheet" th:href="@{/css/app.bundle.css}">
+    <link media="screen, print" rel="stylesheet" th:href="@{/css/fa-solid.css}">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/favicon/apple-touch-icon.png}">
+    <link rel="icon" sizes="32x32" th:href="@{/img/favicon/favicon-32x32.png}" type="image/png">
+    <link color="#5bbad5" rel="mask-icon" th:href="@{/img/favicon/safari-pinned-tab.svg}"><!-- You can add your own stylesheet here to override any styles that comes before it
+		<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+</head>
+<body class="mod-bg-1 ">
+<!-- DOC: script to save and load page settings -->
+<nav class="navbar fixed-bottom navbar-light bg-light text-center justify-content-center" style="margin: 0 auto">
+    <img src="img/ikealogo.svg" style="height: 64px" th:src="@{img/ikealogo.svg}">
+</nav>
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+    <div class="page-inner">
+        <!-- BEGIN Left Aside -->
+
+        <!-- END Left Aside -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN Page Header -->
+
+            <!-- END Page Header -->
+            <!-- BEGIN Page Content -->
+            <!-- the #js-page-content id is needed for some plugins to initialize -->
+            <main class="page-content" id="js-page-content" role="main" th:object="${scheduler}" style="padding-left:58px; padding-right: 52px; background-color: #ffffff">
+                <p align="center" style="font-size: 5.5rem; margin-top: 18px; margin-bottom: 0px; padding-right:3px; color: black; font-weight: 900; font-family:  'Microsoft YaHei Bold'">今天谁值班</p>
+                <p align="center" style="font-size: 2.5rem; color: black; font-weight: 800; margin-bottom: 48px;padding-right:3px; font-family: Verdana">Who's on duty: </p>
+                <div class="row mb-4">
+                    <div class="col-12 mt-1">
+                        <div class="row mt-0">
+                            <div class="col-6 mb-2">
+                                <h1  class="fw-900 color-black" style="font-size: 2.5rem">商场值班经理</h1>
+                                <p style="font-size: 1.2rem; font-weight: 800; color: black">Store duty manager</p>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <h1 class="fw-900 color-black" style="font-size: 2.5rem">销售值班经理</h1>
+                                <p style="font-size: 1.2rem; font-weight: 800; color: black">Sales duty manager</p>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-3" style="min-width: 216px; max-width: 216px; height: 380px; margin-right: 32px ">
+                                <th:block th:switch="${scheduler == null}">
+                                    <th:block th:case="false" th:with="emp=*{departmentMorning}">
+                                <div th:style="'background-image:url(data:image/png;base64,' + ${emp.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                    <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                        <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 67px; color: #ffffff" th:text="${emp.name}">张三</span>
+                                        <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">早班<span style="font-size: 0.9rem; display: block">Morning Shift</span></span>
+                                    </a>
+                                </div>
+                                    </th:block>
+                                    <div th:case="true" th:style="'background-image:url(' + @{/img/avatar-default-icon.png} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                        <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                            <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 67px; color: #ffffff">今日无计划</span>
+                                            <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">早班<span style="font-size: 0.9rem; display: block">Morning Shift</span></span>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div class="col-3" style="min-width: 216px; max-width: 216px; height: 380px; margin-right: 32px ">
+                                <th:block th:switch="${scheduler == null}">
+                                    <th:block th:case="false" th:with="emp=*{departmentAfternoon}">
+                                <div th:style="'background-image:url(data:image/png;base64,' + ${emp.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                    <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                        <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 67px; color: #ffffff" th:text="${emp.name}">张三</span>
+                                        <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">晚班<span style="font-size: 0.9rem; display: block">Night Shift</span></span>
+                                    </a>
+                                </div>
+                                    </th:block>
+                                    <div th:case="true" th:style="'background-image:url(' + @{/img/avatar-default-icon.png} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                        <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                            <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 67px; color: #ffffff">今日无计划</span> <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">晚班<span style="font-size: 0.9rem; display: block">Night Shift</span></span>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div class="col-3" style="min-width: 216px; max-width: 216px; height: 380px; margin-right: 32px ">
+                                <th:block th:switch="${scheduler == null}">
+                                    <th:block th:case="false" th:with="emp=*{salesMorning}">
+                                <div th:style="'background-image:url(data:image/png;base64,' + ${emp.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                    <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                        <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 67px; color: #ffffff" th:text="${emp.name}">张三</span> <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">早班<span style="font-size: 0.9rem; display: block">Morning Shift</span></span>
+                                    </a>
+                                </div>
+                                    </th:block>
+                                    <div th:case="true" th:style="'background-image:url(' + @{/img/avatar-default-icon.png} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                        <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                            <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 67px; color: #ffffff">今日无计划</span> <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">早班<span style="font-size: 0.9rem; display: block">Morning Shift</span></span>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div class="col-3" style="min-width: 216px; max-width: 216px; height: 380px; margin-right:0px ">
+                                <th:block th:switch="${scheduler == null}">
+                                    <th:block th:case="false" th:with="emp=*{salesAfternoon}">
+                                <div th:style="'background-image:url(data:image/png;base64,' + ${emp.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                    <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                        <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 67px; color: #ffffff" th:text="${emp.name}">张三</span> <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">晚班<span style="font-size: 0.9rem; display: block">Night Shift</span></span>
+                                    </a>
+                                </div>
+                                    </th:block>
+                                    <div th:case="true" th:style="'background-image:url(' + @{/img/avatar-default-icon.png} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                        <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                            <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 67px; color: #ffffff">今日无计划</span> <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">晚班<span style="font-size: 0.9rem; display: block">Night Shift</span></span>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="col-12 mt-1">
+                        <div class="row mt-0">
+                            <div class="col-6 mb-2">
+                                <h1  class="fw-900 color-black" style="font-size: 2.5rem">客服值班经理</h1>
+                                <p style="font-size: 1.2rem; font-weight: 800; color: black">Store duty manager</p>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <h1 class="fw-900 color-black" style="font-size: 2.5rem">红十字会值班经理</h1>
+                                <p style="font-size: 1.2rem; font-weight: 800; color: black">Sales duty manager</p>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-3" style="min-width: 216px; max-width: 216px; height: 380px; margin-right: 32px ">
+                                <th:block th:switch="${scheduler == null}">
+                                    <th:block th:case="false" th:with="emp=*{serviceMorning}">
+                                <div th:style="'background-image:url(data:image/png;base64,' + ${emp.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                    <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                        <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 70px; color: #ffffff" th:text="${emp.name}">张三</span>
+                                        <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">早班<span style="font-size: 0.9rem; display: block">Morning Shift</span></span>
+                                    </a>
+                                </div>
+                                    </th:block>
+                                    <div th:case="true" th:style="'background-image:url(' + @{/img/avatar-default-icon.png} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                        <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                            <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 70px; color: #ffffff">今日无计划</span>
+                                            <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">早班<span style="font-size: 0.9rem; display: block">Morning Shift</span></span>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div class="col-3" style="min-width: 216px; max-width: 216px; height: 380px; margin-right: 32px ">
+                                <th:block th:switch="${scheduler == null}">
+                                    <th:block th:case="false" th:with="emp=*{serviceAfternoon}">
+                                <div th:style="'background-image:url(data:image/png;base64,' + ${emp.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                    <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                        <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 70px; color: #ffffff" th:text="${emp.name}">张三</span>
+                                        <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">晚班<span style="font-size: 0.9rem; display: block">Night Shift</span></span>
+                                    </a>
+                                </div>
+                                    </th:block>
+                                    <div th:case="true" th:style="'background-image:url(' + @{/img/avatar-default-icon.png} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                        <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                            <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 70px; color: #ffffff">今日无计划</span>
+                                            <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">晚班<span style="font-size: 0.9rem; display: block">Night Shift</span></span>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div class="col-3" style="min-width: 216px; max-width: 216px; height: 380px; margin-right: 32px ">
+                                <th:block th:switch="${scheduler == null}">
+                                    <th:block th:case="false" th:with="emp=*{redCrossMorning}">
+                                <div th:style="'background-image:url(data:image/png;base64,' + ${emp.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                    <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                        <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 70px; color: #ffffff" th:text="${emp.name}">张三</span>
+                                        <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">早班<span style="font-size: 0.9rem; display: block">Morning Shift</span></span>
+                                    </a>
+                                </div>
+                                    </th:block>
+                                    <div th:case="true" th:style="'background-image:url(' + @{/img/avatar-default-icon.png} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                        <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                            <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 70px; color: #ffffff">今日无计划</span>
+                                            <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">早班<span style="font-size: 0.9rem; display: block">Morning Shift</span></span>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div class="col-3" style="min-width: 216px; max-width: 216px; height: 380px; margin-right:0px ">
+                                <th:block th:switch="${scheduler == null}">
+                                    <th:block th:case="false" th:with="emp=*{redCrossAfternoon}">
+                                <div th:style="'background-image:url(data:image/png;base64,' + ${emp.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                    <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                        <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 70px; color: #ffffff" th:text="${emp.name}">张三</span>
+                                        <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">晚班<span style="font-size: 0.9rem; display: block">Night Shift</span></span>
+                                    </a>
+                                </div>
+                                    </th:block>
+                                    <div th:case="true" th:style="'background-image:url(' + @{/img/avatar-default-icon.png} + '); border: 0px solid #ffffff;height: 319px; width: 216px; background-size: cover;'">
+                                        <a href="javascript:void(0);" class="text-center  " style="padding-right: 18px;">
+                                            <span style="font-weight: 800;   width: 100%; background-color: #000000; opacity: 0.7; font-size: 1.2rem; position: absolute; bottom: 70px; color: #ffffff">今日无计划</span>
+                                            <span class="d-block" style="font-weight: 800; text-align: left; word-wrap: normal; padding: 2px 2px;  width: 100%; background-color: #ffffff;  font-size: 1.8rem; font-weight: 800; position: absolute; bottom: 0px; color: #000000">晚班<span style="font-size: 0.9rem; display: block">Night Shift</span></span>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                                <div class="col-12 mt-1">
+                                    <h1 class="fw-900 color-black" style="font-size: 2.5rem">商场风险管理小组</h1>
+                                    <p style="font-size: 1.2rem; font-weight: 800; color: black">Store CMT</p>
+                                    <div class="row row-grid no-gutters">
+                                        <th:block th:each="member, memberStat : ${emergencyMembers}">
+                                            <th:block th:if="${memberStat.count} %  6 != 0">
+                                                <div class="col-6-eorion" th:style="'background-image:url(data:image/png;base64,'+ ${member.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 1px solid #ffffff; height: 177px; max-width: 120px; min-width: 120px; background-size: cover; margin-right: 48px'">
+                                                    <a href="javascript:void(0);" class="text-center p-0 d-flex flex-column hover-highlight ">
+                                                        <span class="profile-image rounded-circle d-block m-auto " ></span> <span class="d-block" style="font-weight: 800; padding: 2px 2px;  width: 100%; background-color: #000000; opacity: 0.7; position: absolute; bottom: 0px; color: #ffffff" th:text="${member.name}">张三</span>
+                                                    </a>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:if="${memberStat.count} %  6 == 0">
+                                                <div class="col-6-eorion" th:style="'background-image:url(data:image/png;base64,'+ ${member.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar} + '); border: 1px solid #ffffff; height: 177px; max-width: 120px; min-width: 120px; background-size: cover; margin-right: 0px'">
+                                                    <a href="javascript:void(0);" class="text-center p-0 d-flex flex-column hover-highlight ">
+                                                        <span class="profile-image rounded-circle d-block m-auto " ></span> <span class="d-block" style="font-weight: 800; padding: 2px 2px;  width: 100%; background-color: #000000; opacity: 0.7; position: absolute; bottom: 0px; color: #ffffff" th:text="${member.name}">张三</span>
+                                                    </a>
+                                                </div>
+                                            </th:block>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+                <!-- Your main content goes below here: -->
+
+            </main>
+            <!-- this overlay is activated only when mobile menu is triggered -->
+            <!-- END Page Content -->
+            <!-- BEGIN Page Footer -->
+
+            <!-- END Page Footer -->
+            <!-- BEGIN Shortcuts -->
+
+            <!-- END Shortcuts -->
+            <!-- BEGIN Color profile -->
+            <!-- this area is hidden and will not be seen on screens or screen readers -->
+            <!-- we use this only for CSS color refernce for JS stuff -->
+
+            <!-- BEGIN Color profile -->
+
+            <!-- this area is hidden and will not be seen on screens or screen readers -->
+
+            <!-- we use this only for CSS color refernce for JS stuff -->
+
+            <p class="d-none" id="js-color-profile"><span class="color-primary-50"></span> <span
+                    class="color-primary-100"></span> <span class="color-primary-200"></span> <span
+                    class="color-primary-300"></span> <span class="color-primary-400"></span> <span
+                    class="color-primary-500"></span> <span class="color-primary-600"></span> <span
+                    class="color-primary-700"></span> <span class="color-primary-800"></span> <span
+                    class="color-primary-900"></span> <span class="color-info-50"></span> <span
+                    class="color-info-100"></span> <span class="color-info-200"></span> <span
+                    class="color-info-300"></span> <span class="color-info-400"></span> <span
+                    class="color-info-500"></span> <span class="color-info-600"></span> <span
+                    class="color-info-700"></span> <span class="color-info-800"></span> <span
+                    class="color-info-900"></span> <span class="color-danger-50"></span> <span
+                    class="color-danger-100"></span> <span class="color-danger-200"></span> <span
+                    class="color-danger-300"></span> <span class="color-danger-400"></span> <span
+                    class="color-danger-500"></span> <span class="color-danger-600"></span> <span
+                    class="color-danger-700"></span> <span class="color-danger-800"></span> <span
+                    class="color-danger-900"></span> <span class="color-warning-50"></span> <span
+                    class="color-warning-100"></span> <span class="color-warning-200"></span> <span
+                    class="color-warning-300"></span> <span class="color-warning-400"></span> <span
+                    class="color-warning-500"></span> <span class="color-warning-600"></span> <span
+                    class="color-warning-700"></span> <span class="color-warning-800"></span> <span
+                    class="color-warning-900"></span> <span class="color-success-50"></span> <span
+                    class="color-success-100"></span> <span class="color-success-200"></span> <span
+                    class="color-success-300"></span> <span class="color-success-400"></span> <span
+                    class="color-success-500"></span> <span class="color-success-600"></span> <span
+                    class="color-success-700"></span> <span class="color-success-800"></span> <span
+                    class="color-success-900"></span> <span class="color-fusion-50"></span> <span
+                    class="color-fusion-100"></span> <span class="color-fusion-200"></span> <span
+                    class="color-fusion-300"></span> <span class="color-fusion-400"></span> <span
+                    class="color-fusion-500"></span> <span class="color-fusion-600"></span> <span
+                    class="color-fusion-700"></span> <span class="color-fusion-800"></span> <span
+                    class="color-fusion-900"></span></p>
+
+            <!-- END Color profile -->
+
+            <!-- END Color profile -->
+        </div>
+    </div>
+</div>
+<!-- END Page Wrapper -->
+<!-- BEGIN Quick Menu -->
+<!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss -->
+
+<!-- END Quick Menu -->
+<!-- BEGIN Messenger -->
+
+<!-- END Messenger -->
+<!-- BEGIN Page Settings -->
+
+<!-- END Page Settings -->
+<!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+<script src="js/vendors.bundle.js"></script>
+<script src="js/app.bundle.js"></script>
+<!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
+</body>
+</html>

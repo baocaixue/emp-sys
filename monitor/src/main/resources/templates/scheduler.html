@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<!--
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>排班</title>
+    <meta content="Page Title" name="description">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui" name="viewport">
+    <!-- Call App Mode on ios devices -->
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta content="no" name="msapplication-tap-highlight">
+    <!-- base css -->
+    <link th:href="@{/css/vendors.bundle.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/app.bundle.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/fa-brands.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/fa-regular.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/fa-duotone.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/fa-solid.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/datagrid/datatables/datatables.bundle.css}" media="screen, print" rel="stylesheet">
+    <link th:href="@{/css/formplugins/select2/select2.bundle.css}" media="screen, print" rel="stylesheet">
+    <!-- Place favicon.ico in the root directory -->
+    <link th:href="@{/img/favicon/apple-touch-icon.png}" rel="apple-touch-icon" sizes="180x180">
+    <link th:href="@{/img/favicon/favicon-32x32.png}" rel="icon" sizes="32x32" type="image/png">
+    <link color="#5bbad5" th:href="@{/img/favicon/safari-pinned-tab.svg}" rel="mask-icon">
+    <!-- You can add your own stylesheet here to override any styles that comes before it
+            <link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+</head>
+<body class="mod-bg-1 ">
+<!-- DOC: script to save and load page settings -->
+
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+    <div class="page-inner">
+        <!-- BEGIN Left Aside -->
+        <aside class="page-sidebar">
+
+            <!-- BEGIN PRIMARY NAVIGATION -->
+            <nav class="primary-nav" id="js-primary-nav" role="navigation">
+
+                <!--TIP: The menu items are not auto translated. You must have a residing lang file associated with the menu saved inside dist/media/data with reference to each 'data-i18n' attribute.-->
+                <ul class="nav-menu" id="js-nav-menu">
+                    <li> <a th:href="@{/}"> <i class="fal fa-fw fa-user-circle"></i> <span class="nav-link-text" data-i18n="nav.blankpage">人员数据</span> </a> </li>
+                    <li class="active"><a th:href="@{/schedulerList}"> <i class="fal fa-fw fa-calendar-check"></i> <span class="nav-link-text" data-i18n="nav.blankpage">排班设置</span> </a></li>
+                    <li> <a th:href="@{/settings}"> <i class="fal fa-fw fa-cog"></i> <span class="nav-link-text" data-i18n="nav.blankpage">系统设置</span> </a> </li>
+                    <!-- Example of open and active states -->
+                </ul>
+            </nav>
+            <!-- END PRIMARY NAVIGATION -->
+            <!-- NAV FOOTER -->
+            <!-- END NAV FOOTER -->
+        </aside>
+        <!-- END Left Aside -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN Page Header -->
+            <header class="page-header" role="banner">
+                <img height="32px" th:src="@{/img/eorionlogoonly.svg}" style="margin-right: 3px"><span style="color: gray; font-weight: 300">| 排班设置</span>
+                <!-- we need this logo when user switches to nav-function-top -->
+                <!-- DOC: nav menu layout change shortcut -->
+                <!-- DOC: mobile button appears during mobile width -->
+                <div class="ml-auto d-flex">
+                    <!-- activate app search icon (mobile) -->
+                    <!-- app settings -->
+                    <!-- app shortcuts -->
+                    <!-- app message -->
+                    <a class="header-icon" href="#"> <i class="fal fa-sign-out-alt"></i> </a>
+                    <!-- app notification -->
+                    <!-- app user menu -->
+                </div>
+            </header>
+            <!-- END Page Header -->
+            <!-- BEGIN Page Content -->
+            <!-- the #js-page-content id is needed for some plugins to initialize -->
+            <main class="page-content" id="js-page-content" role="main">
+                <div class="row">
+                    <div class="col-6">
+                        <form method="POST" enctype="multipart/form-data" th:action="@{/scheduler/upload}">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input aria-describedby="inputGroupFileAddon04" class="custom-file-input" id="inputGroupFile04" type="file" name="file" required>
+                                    <label class="custom-file-label" for="inputGroupFile04">选择文件</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" id="inputGroupFileAddon04" type="submit"><i class="fal fa-cloud-upload mr-2"></i>上传</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <span class="mr-4">或</span>
+                            <a class="btn btn-primary" th:href="@{/scheduler}" role="button"><i class="fal fa-plus mr-2"></i>单个新增</a>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <form method="post" th:action="@{/schedulerList}" th:object="${period}">
+                            <div class="row">
+                                <div class="col-3 mt-4">
+                                    <div class="form-group mt-3">
+                                        <label class="form-label" for="startdate">记录显示开始日期</label>
+                                        <input class="form-control" id="startdate" type="date" th:field="*{startDate}" th:value="*{startDate}" required>
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-4">
+                                    <div class="form-group mt-3">
+                                        <label class="form-label" for="enddate">记录显示结束日期</label>
+                                        <input class="form-control" id="enddate" type="date" th:field="*{endDate}" th:value="*{endDate}" required>
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-4">
+                                    <div class="form-group mt-4">
+                                        <button class="btn btn-primary" id="inputGroupFileAddon05" type="submit"><i class="fal fa-search mr-2"></i>查询</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Your main content goes below here: -->
+                <div class="row">
+
+                    <!-- datatable start -->
+                    <div class="container-fluid mt-3">
+                        <table class="table table-bordered table-hover table-striped w-100" id="dt-basic-example">
+                            <thead>
+                            <tr>
+                                <th rowspan="2">日期</th>
+                                <th colspan="2">商场值班</th>
+                                <th colspan="2">销售值班</th>
+                                <th colspan="2">客服值班</th>
+                                <th colspan="2">红十字会值班</th>
+                                <th rowspan="2" style="text-align: center">操作</th>
+                            </tr>
+                            <tr>
+                                <th><i class="fad fa-sunrise mr-2 text-danger"></i>早班</th>
+                                <th><i class="fad fa-moon-stars mr-2 text-danger"></i>晚班</th>
+                                <th><i class="fad fa-sunrise mr-2 text-danger"></i>早班</th>
+                                <th><i class="fad fa-moon-stars mr-2 text-danger"></i>晚班</th>
+                                <th><i class="fad fa-sunrise mr-2 text-danger"></i>早班</th>
+                                <th><i class="fad fa-moon-stars mr-2 text-danger"></i>晚班</th>
+                                <th><i class="fad fa-sunrise mr-2 text-danger"></i>早班</th>
+                                <th><i class="fad fa-moon-stars mr-2 text-danger"></i>晚班</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="schedule : ${scheduleList}">
+                                <td th:text="${#temporals.format(schedule.date, 'yyyy-MM-dd')}">2020-6-1</td>
+                                <th:block th:switch="${schedule.departmentMorning} == null">
+                                    <th:block th:case="true">
+                                        <td style="background-color: #e53935">该员工不存在</td>
+                                    </th:block>
+                                    <th:block th:case="false">
+                                        <td th:text="${schedule.departmentMorning.name}">zhang Shan</td>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:switch="${schedule.departmentAfternoon} == null">
+                                    <th:block th:case="true">
+                                        <td style="background-color: #e53935">该员工不存在</td>
+                                    </th:block>
+                                    <th:block th:case="false">
+                                        <td th:text="${schedule.departmentAfternoon.name}">zhang Shan</td>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:switch="${schedule.salesMorning} == null">
+                                    <th:block th:case="true">
+                                        <td style="background-color: #e53935">该员工不存在</td>
+                                    </th:block>
+                                    <th:block th:case="false">
+                                        <td th:text="${schedule.salesMorning.name}">zhang Shan</td>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:switch="${schedule.salesAfternoon} == null">
+                                    <th:block th:case="true">
+                                        <td style="background-color: #e53935">该员工不存在</td>
+                                    </th:block>
+                                    <th:block th:case="false">
+                                        <td th:text="${schedule.salesAfternoon.name}">zhang Shan</td>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:switch="${schedule.serviceMorning} == null">
+                                    <th:block th:case="true">
+                                        <td style="background-color: #e53935">该员工不存在</td>
+                                    </th:block>
+                                    <th:block th:case="false">
+                                        <td th:text="${schedule.serviceMorning.name}">zhang Shan</td>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:switch="${schedule.serviceAfternoon} == null">
+                                    <th:block th:case="true">
+                                        <td style="background-color: #e53935">该员工不存在</td>
+                                    </th:block>
+                                    <th:block th:case="false">
+                                        <td th:text="${schedule.serviceAfternoon.name}">zhang Shan</td>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:switch="${schedule.redCrossMorning} == null">
+                                    <th:block th:case="true">
+                                        <td style="background-color: #e53935">该员工不存在</td>
+                                    </th:block>
+                                    <th:block th:case="false">
+                                        <td th:text="${schedule.redCrossMorning.name}">zhang Shan</td>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:switch="${schedule.redCrossAfternoon} == null">
+                                    <th:block th:case="true">
+                                        <td style="background-color: #e53935">该员工不存在</td>
+                                    </th:block>
+                                    <th:block th:case="false">
+                                        <td th:text="${schedule.redCrossAfternoon.name}">zhang Shan</td>
+                                    </th:block>
+                                </th:block>
+                                <td align="center">
+                                    <a th:href="@{/scheduler(date=${schedule.date})}">
+                                        <i class="fal fa-fw fa-pen"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal Right Small -->
+
+                </div>
+            </main>
+            <!-- this overlay is activated only when mobile menu is triggered -->
+            <!-- END Page Content -->
+            <!-- BEGIN Page Footer -->
+
+            <!-- END Page Footer -->
+            <!-- BEGIN Shortcuts -->
+
+            <!-- END Shortcuts -->
+            <!-- BEGIN Color profile -->
+            <!-- this area is hidden and will not be seen on screens or screen readers -->
+            <!-- we use this only for CSS color refernce for JS stuff -->
+
+            <!-- BEGIN Color profile -->
+
+            <!-- this area is hidden and will not be seen on screens or screen readers -->
+
+            <!-- we use this only for CSS color refernce for JS stuff -->
+
+            <p class="d-none" id="js-color-profile"><span class="color-primary-50"></span> <span
+                    class="color-primary-100"></span> <span class="color-primary-200"></span> <span
+                    class="color-primary-300"></span> <span class="color-primary-400"></span> <span
+                    class="color-primary-500"></span> <span class="color-primary-600"></span> <span
+                    class="color-primary-700"></span> <span class="color-primary-800"></span> <span
+                    class="color-primary-900"></span> <span class="color-info-50"></span> <span
+                    class="color-info-100"></span> <span class="color-info-200"></span> <span
+                    class="color-info-300"></span> <span class="color-info-400"></span> <span
+                    class="color-info-500"></span> <span class="color-info-600"></span> <span
+                    class="color-info-700"></span> <span class="color-info-800"></span> <span
+                    class="color-info-900"></span> <span class="color-danger-50"></span> <span
+                    class="color-danger-100"></span> <span class="color-danger-200"></span> <span
+                    class="color-danger-300"></span> <span class="color-danger-400"></span> <span
+                    class="color-danger-500"></span> <span class="color-danger-600"></span> <span
+                    class="color-danger-700"></span> <span class="color-danger-800"></span> <span
+                    class="color-danger-900"></span> <span class="color-warning-50"></span> <span
+                    class="color-warning-100"></span> <span class="color-warning-200"></span> <span
+                    class="color-warning-300"></span> <span class="color-warning-400"></span> <span
+                    class="color-warning-500"></span> <span class="color-warning-600"></span> <span
+                    class="color-warning-700"></span> <span class="color-warning-800"></span> <span
+                    class="color-warning-900"></span> <span class="color-success-50"></span> <span
+                    class="color-success-100"></span> <span class="color-success-200"></span> <span
+                    class="color-success-300"></span> <span class="color-success-400"></span> <span
+                    class="color-success-500"></span> <span class="color-success-600"></span> <span
+                    class="color-success-700"></span> <span class="color-success-800"></span> <span
+                    class="color-success-900"></span> <span class="color-fusion-50"></span> <span
+                    class="color-fusion-100"></span> <span class="color-fusion-200"></span> <span
+                    class="color-fusion-300"></span> <span class="color-fusion-400"></span> <span
+                    class="color-fusion-500"></span> <span class="color-fusion-600"></span> <span
+                    class="color-fusion-700"></span> <span class="color-fusion-800"></span> <span
+                    class="color-fusion-900"></span></p>
+
+            <!-- END Color profile -->
+
+            <!-- END Color profile -->
+        </div>
+    </div>
+</div>
+<!-- END Page Wrapper -->
+<!-- BEGIN Quick Menu -->
+<!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss -->
+
+<!-- END Quick Menu -->
+<!-- BEGIN Messenger -->
+
+<!-- END Messenger -->
+<!-- BEGIN Page Settings -->
+
+<!-- END Page Settings -->
+<!-- base vendor bundle:
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+<script th:src="@{/js/vendors.bundle.js}"></script>
+<script th:src="@{/js/app.bundle.js}"></script>
+<script th:src="@{/js/datagrid/datatables/datatables.bundle.js}"></script>
+<script th:src="@{/js/formplugins/select2/select2.bundle.js}"></script>
+<script>
+    /* demo scripts for change table color */
+    /* change background */
+    $(document).ready(function () {
+        $('#dt-basic-example').dataTable(
+            {
+                responsive: true,
+                paging: false,
+                searching: true,
+                ordering: false
+            });
+    });
+</script>
+<!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
+</body>
+</html>

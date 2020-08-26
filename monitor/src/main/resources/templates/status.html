@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>人员状态</title>
+<meta name="description" content="Page Title">
+  <meta http-equiv="refresh" th:content="${refreshDuration.duration * 60}">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!-- Call App Mode on ios devices -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Remove Tap Highlight on Windows Phone IE -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- base css -->
+<link rel="stylesheet" media="screen, print" th:href="@{/css/vendors.bundle.css}">
+<link rel="stylesheet" media="screen, print" th:href="@{/css/app.bundle.css}">
+<!-- Place favicon.ico in the root directory -->
+<link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/favicon/apple-touch-icon.png}">
+<link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicon/favicon-32x32.png}">
+<link rel="mask-icon" th:href="@{/img/favicon/safari-pinned-tab.svg}" color="#5bbad5">
+<!-- You can add your own stylesheet here to override any styles that comes before it
+		<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+</head>
+<body class="mod-bg-1 " onload="onPageShow()">
+<nav class="navbar fixed-bottom navbar-light bg-light text-center justify-content-center" style="margin: 0 auto">
+  <img src="img/ikealogo.svg" th:src="@{img/ikealogo.svg}" style="height: 32px">
+</nav>
+<!-- DOC: script to save and load page settings --> 
+
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+  <div class="page-inner"> 
+    <!-- BEGIN Left Aside --> 
+    
+    <!-- END Left Aside -->
+    <div class="page-content-wrapper"> 
+      <!-- BEGIN Page Header -->
+      <!-- END Page Header --> 
+      <!-- BEGIN Page Content --> 
+      <!-- the #js-page-content id is needed for some plugins to initialize -->
+      <main id="js-page-content" role="main" class="page-content bg-white" style="padding: 16px 0px 0px;">
+        <p align="center" style="font-size: 5.5rem; color: black; font-weight: 900; margin-bottom: 0px; font-family: Microsoft YaHei Bold">今天谁上班:</p>
+        <p align="center" style="font-size: 2.5rem; color: black; font-weight: 800; margin-bottom: 0rem; font-family: Verdana">Today is in: </p>
+        <div class="subheader mt-0 mb-0">
+          <h1 class="subheader-title" style="font-weight: 900; font-size: 4rem;color: black; font-family: Verdana"> <i class="fal fa-fw fa-sign-in-alt"></i> IN <span style="color: #78909c; font-weight: 300; margin-left: 9px; font-family: 'Microsoft YaHei">|   下列人员正在现场 </span> </h1>
+        </div>
+
+        <div class="card mb-g shadow-none border-0" id="employee-in-list">
+          <div class="row row-grid shadow-none" style="box-shadow: none; padding-right: 0px; padding-left: 58px" th:fragment="employee-in-list">
+            <th:block th:each="employeeIn : ${inList}">
+                <div class="col-7-eorion" th:style="*{'background-image:url(data:image/png;base64,' + employeeIn.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar + '); border: 0px solid #ffffff; height: 203px; max-width: 138px; min-width: 138px; background-size: cover;'}">
+                  <a href=" " class="text-center p-0 d-flex flex-column hover-highlight ">
+                    <span class="profile-image d-block m-auto " ></span>
+                    <span class="d-block padding 4px 4px" style="font-weight: 800; width: 100%; background-color: #000000; opacity: 0.6; position: absolute; bottom: 0px; color: #ffffff" th:text="*{employeeIn.name}"></span>
+                  </a >
+                </div>
+            </th:block>
+          </div>
+        </div>
+
+        <div class="subheader mt-0 mb-0">
+          <h1 class="subheader-title" style="font-weight: 900; font-size: 4rem;color: black; font-family: Verdana"> <i class="fal fa-fw fa-sign-out-alt"></i> OUT <span style="color: #78909c; font-weight: 300; margin-left: 9px; font-family: 'Microsoft YaHei">|   下列人员不在现场 </span></h1>
+        </div>
+		  
+		  
+        <div class="card mb-g shadow-none border-0" id="employee-out-list">
+          <div class="row row-grid shadow-none" style="box-shadow: none; padding-right: 0px; padding-left: 58px" th:fragment="employee-out-list">
+            <th:block th:each="employeeIn : ${outList}">
+                <div  class="col-7-eorion" th:style="*{'background-image:url(data:image/png;base64,' + employeeIn.employeeAvatar.parseBinaryAvatarToBase64Encode().base64EncodedAvatar + '); border: 0px solid #ffffff; height: 203px; max-width: 138px; min-width: 138px; background-size: cover;'}">
+                  <a href=" " class="text-center p-0 d-flex flex-column hover-highlight ">
+                    <span class="profile-image d-block m-auto " ></span>
+                    <span class="d-block padding 4px 4px" style="font-weight: 800; width: 100%; background-color: #000000; opacity: 0.6; position: absolute; bottom: 0px; color: #ffffff" th:text="*{employeeIn.name}"></span>
+                  </a >
+                </div>
+            </th:block>
+          </div>
+        </div>
+        <!-- Your main content goes below here: --> 
+        
+      </main>
+      <!-- this overlay is activated only when mobile menu is triggered --> 
+      <!-- END Page Content --> 
+      <!-- BEGIN Page Footer -->
+
+      <!-- END Page Footer --> 
+      <!-- BEGIN Shortcuts --> 
+      
+      <!-- END Shortcuts --> 
+      <!-- BEGIN Color profile --> 
+      <!-- this area is hidden and will not be seen on screens or screen readers --> 
+      <!-- we use this only for CSS color refernce for JS stuff -->
+
+      <!-- BEGIN Color profile -->
+
+      <!-- this area is hidden and will not be seen on screens or screen readers -->
+
+      <!-- we use this only for CSS color refernce for JS stuff -->
+
+      <p id="js-color-profile" class="d-none">
+
+        <span class="color-primary-50"></span>
+
+        <span class="color-primary-100"></span>
+
+        <span class="color-primary-200"></span>
+
+        <span class="color-primary-300"></span>
+
+        <span class="color-primary-400"></span>
+
+        <span class="color-primary-500"></span>
+
+        <span class="color-primary-600"></span>
+
+        <span class="color-primary-700"></span>
+
+        <span class="color-primary-800"></span>
+
+        <span class="color-primary-900"></span>
+
+        <span class="color-info-50"></span>
+
+        <span class="color-info-100"></span>
+
+        <span class="color-info-200"></span>
+
+        <span class="color-info-300"></span>
+
+        <span class="color-info-400"></span>
+
+        <span class="color-info-500"></span>
+
+        <span class="color-info-600"></span>
+
+        <span class="color-info-700"></span>
+
+        <span class="color-info-800"></span>
+
+        <span class="color-info-900"></span>
+
+        <span class="color-danger-50"></span>
+
+        <span class="color-danger-100"></span>
+
+        <span class="color-danger-200"></span>
+
+        <span class="color-danger-300"></span>
+
+        <span class="color-danger-400"></span>
+
+        <span class="color-danger-500"></span>
+
+        <span class="color-danger-600"></span>
+
+        <span class="color-danger-700"></span>
+
+        <span class="color-danger-800"></span>
+
+        <span class="color-danger-900"></span>
+
+        <span class="color-warning-50"></span>
+
+        <span class="color-warning-100"></span>
+
+        <span class="color-warning-200"></span>
+
+        <span class="color-warning-300"></span>
+
+        <span class="color-warning-400"></span>
+
+        <span class="color-warning-500"></span>
+
+        <span class="color-warning-600"></span>
+
+        <span class="color-warning-700"></span>
+
+        <span class="color-warning-800"></span>
+
+        <span class="color-warning-900"></span>
+
+        <span class="color-success-50"></span>
+
+        <span class="color-success-100"></span>
+
+        <span class="color-success-200"></span>
+
+        <span class="color-success-300"></span>
+
+        <span class="color-success-400"></span>
+
+        <span class="color-success-500"></span>
+
+        <span class="color-success-600"></span>
+
+        <span class="color-success-700"></span>
+
+        <span class="color-success-800"></span>
+
+        <span class="color-success-900"></span>
+
+        <span class="color-fusion-50"></span>
+
+        <span class="color-fusion-100"></span>
+
+        <span class="color-fusion-200"></span>
+
+        <span class="color-fusion-300"></span>
+
+        <span class="color-fusion-400"></span>
+
+        <span class="color-fusion-500"></span>
+
+        <span class="color-fusion-600"></span>
+
+        <span class="color-fusion-700"></span>
+
+        <span class="color-fusion-800"></span>
+
+        <span class="color-fusion-900"></span>
+
+      </p >
+
+      <!-- END Color profile --> 
+    </div>
+  </div>
+</div>
+<!-- END Page Wrapper --> 
+<!-- BEGIN Quick Menu --> 
+<!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss --> 
+
+<!-- END Quick Menu --> 
+<!-- BEGIN Messenger --> 
+
+<!-- END Messenger --> 
+<!-- BEGIN Page Settings --> 
+
+<!-- END Page Settings --> 
+<!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+<script th:src="@{/js/vendors.bundle.js}"></script>
+<script th:src="@{/js/app.bundle.js}"></script>
+<script>
+  function onPageShow() {
+    let settings = {
+      type: 'GET',
+      url: '[[@{/status/inList}]]',
+    };
+
+    $.ajax(settings).done(function(result) {
+      $('#employee-in-list').html(result);
+    });
+
+    settings = {
+      type: 'GET',
+      url: '[[@{/status/outList}]]',
+    };
+
+    $.ajax(settings).done(function(result) {
+      $('#employee-out-list').html(result);
+    });
+  }
+</script>
+<!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
+</body>
+</html>

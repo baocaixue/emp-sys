@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.5
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>高峰日</title>
+<meta name="description" content="Inbox Read">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+<!-- Call App Mode on ios devices -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Remove Tap Highlight on Windows Phone IE -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- base css -->
+<link rel="stylesheet" media="screen, print" th:href="@{/css/vendors.bundle.css}">
+<link rel="stylesheet" media="screen, print" th:href="@{/css/app.bundle.css}">
+<link rel="stylesheet" media="screen, print" th:href="@{/css/themes/cust-theme-3.css}">
+<!-- Place favicon.ico in the root directory -->
+
+<link rel="stylesheet" media="screen, print" th:href="@{/css/fa-solid.css}">
+<link rel="stylesheet" media="screen, print" th:href="@{/css/fa-brands.css}">
+<link rel="stylesheet" media="screen, print" th:href="@{/css/fa-regular.css}">
+<link rel="stylesheet" media="screen, print" th:href="@{/css/fa-duotone.css}">
+</head>
+<body class="mod-bg-1 mod-nav-link nav-function-minify layout-composed">
+  <nav class="navbar fixed-bottom navbar-light bg-light text-center justify-content-center" style="margin: 0 auto">
+    <img th:src="@{/img/ikealogo.svg}" style="height: 64px">
+  </nav>
+<!-- DOC: script to save and load page settings --> 
+
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+  <div class="page-inner"> 
+    <!-- BEGIN Left Aside --> 
+    
+    <!-- END Left Aside -->
+    <div class="page-content-wrapper"> 
+      <!-- BEGIN Page Header --> 
+      
+      <!-- END Page Header --> 
+      <!-- BEGIN Page Content --> 
+      <!-- the #js-page-content id is needed for some plugins to initialize -->
+      <main id="js-page-content" role="main" class="page-content" th:style="'background-image: url(' + @{/img/red.svg} + ')'">
+        <!-- Page heading removed for composed layout -->
+        <h1 style="text-align: center; font-size: 7rem; margin-top: 4rem; font-weight: 900; color: black">今天是...</h1>
+        <h1 style="text-align: center; font-size: 3rem; color: black; font-weight: 600">Today is...</h1>
+        <h1 style="text-align: center; font-size: 3rem; color: black; font-weight: 600">[[${#dates.format(#dates.createNow(), 'yyyy/MM/dd')}]]</h1>
+        <div>
+          <p align="center" style="font-size: 6rem; color: white; font-weight: 900;margin-top: 13rem; margin-bottom: 0rem">高峰日</p>
+          <p align="center" style="font-size: 3rem; color: white; font-weight: 800; margin-top: 0rem">Peak Day</p>
+        </div>
+        <div>
+          <p align="center" style="font-size: 2rem; color: white; font-weight: 400; margin-top: 3rem; margin-bottom: 0rem">预计销售额超过<span style="font-weight: 900">200万</span></p>
+          <p align="center" style="font-size: 2rem; color: white; font-weight: 400; margin-top:0rem; margin-bottom: 0rem">预计访客额超过<span style="font-weight: 900">19,000人</span></p>
+          <p align="center" style="font-size: 2.2rem; color: white; font-weight: 900; margin-top: 6rem; margin-bottom: 0rem">高峰日任务 :</p>
+          <p align="center" style="font-size: 1.6rem; color: white; font-weight: 400; margin-top:0rem; margin-bottom: 0rem">良好的购物环境，便利的购物和用车</p>
+          <p align="center" style="font-size: 1.6rem; color: white; font-weight: 400; margin-top:0rem; margin-bottom: 0rem">提高客户满意度，实现销售最大化</p>
+          <p align="center" style="font-size: 1.6rem; color: white; font-weight: 400; margin-top:0rem; margin-bottom: 0rem">做好准备工作，员工用“心服”服务，启动员工激励</p>
+          <p align="center" style="font-size: 2.2rem; color: white; font-weight: 900; margin-top: 3rem; margin-bottom: 0rem">Peak day tasks :</p>
+          <p align="center" style="font-size: 0.9rem; color: white; font-weight: 400; margin-top:0rem; margin-bottom: 0rem">Good environment for convenient shopping and dining</p>
+          <p align="center" style="font-size: 0.9rem; color: white; font-weight: 400; margin-top:0rem; margin-bottom: 0rem">Maintain high customer satisfaction, maximum sales</p>
+          <p align="center" style="font-size: 0.9rem; color: white; font-weight: 400; margin-top:0rem; margin-bottom: 0rem">Good preparation, co-workers' services with &quot;HEART&quot;, trigger co-worker motivation program</p>
+        </div>
+      </main>
+      <!-- this overlay is activated only when mobile menu is triggered --> 
+      
+      <!-- END Page Content --> 
+      <!-- BEGIN Page Footer -->
+      <footer class="page-footer" role="contentinfo">
+        <div>
+          <ul class="list-table m-0">
+            <li><a href="#" class="text-secondary fw-900">IKEA</a></li>
+          </ul>
+        </div>
+      </footer>
+      <!-- END Page Footer --> 
+      <!-- BEGIN Shortcuts --> 
+      
+      <!-- END Shortcuts --> 
+      <!-- BEGIN Color profile --> 
+      <!-- this area is hidden and will not be seen on screens or screen readers --> 
+      <!-- we use this only for CSS color refernce for JS stuff -->
+      <p id="js-color-profile" class="d-none"> <span class="color-primary-50"></span> <span class="color-primary-100"></span> <span class="color-primary-200"></span> <span class="color-primary-300"></span> <span class="color-primary-400"></span> <span class="color-primary-500"></span> <span class="color-primary-600"></span> <span class="color-primary-700"></span> <span class="color-primary-800"></span> <span class="color-primary-900"></span> <span class="color-info-50"></span> <span class="color-info-100"></span> <span class="color-info-200"></span> <span class="color-info-300"></span> <span class="color-info-400"></span> <span class="color-info-500"></span> <span class="color-info-600"></span> <span class="color-info-700"></span> <span class="color-info-800"></span> <span class="color-info-900"></span> <span class="color-danger-50"></span> <span class="color-danger-100"></span> <span class="color-danger-200"></span> <span class="color-danger-300"></span> <span class="color-danger-400"></span> <span class="color-danger-500"></span> <span class="color-danger-600"></span> <span class="color-danger-700"></span> <span class="color-danger-800"></span> <span class="color-danger-900"></span> <span class="color-warning-50"></span> <span class="color-warning-100"></span> <span class="color-warning-200"></span> <span class="color-warning-300"></span> <span class="color-warning-400"></span> <span class="color-warning-500"></span> <span class="color-warning-600"></span> <span class="color-warning-700"></span> <span class="color-warning-800"></span> <span class="color-warning-900"></span> <span class="color-success-50"></span> <span class="color-success-100"></span> <span class="color-success-200"></span> <span class="color-success-300"></span> <span class="color-success-400"></span> <span class="color-success-500"></span> <span class="color-success-600"></span> <span class="color-success-700"></span> <span class="color-success-800"></span> <span class="color-success-900"></span> <span class="color-fusion-50"></span> <span class="color-fusion-100"></span> <span class="color-fusion-200"></span> <span class="color-fusion-300"></span> <span class="color-fusion-400"></span> <span class="color-fusion-500"></span> <span class="color-fusion-600"></span> <span class="color-fusion-700"></span> <span class="color-fusion-800"></span> <span class="color-fusion-900"></span> </p>
+      <!-- END Color profile --> 
+    </div>
+  </div>
+</div>
+<!-- END Page Wrapper --> 
+<!-- BEGIN Quick Menu --> 
+<!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss --> 
+
+<!-- END Quick Menu --> 
+<!-- BEGIN Messenger --> 
+
+<!-- END Messenger --> 
+<!-- BEGIN Page Settings --> 
+
+<!-- END Page Settings --> 
+<!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+<script th:src="@{/js/vendors.bundle.js}"></script>
+<script th:src="@{/js/app.bundle.js}"></script>
+</body>
+</html>
