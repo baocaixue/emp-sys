@@ -329,5 +329,15 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 <script src="js/vendors.bundle.js"></script>
 <script src="js/app.bundle.js"></script>
 <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
+<script>
+    const sseSource = new EventSource('[[@{/shift/change}]]');
+    sseSource.addEventListener('message', function(e) {
+        refreshPage();
+    }, false);
+
+    function refreshPage() {
+        window.location.reload(false);
+    }
+</script>
 </body>
 </html>
